@@ -144,7 +144,7 @@ ActionSheet.prototype._onclick = function (ev) {
     ev.stopPropagation();
     ActionSheet.prototype.hide();
     if (ActionSheet.prototype.successCallBack) {
-        ActionSheet.prototype.successCallBack(parseInt(ev.target.value, 10));
+        ActionSheet.prototype.successCallBack(parseInt(ev.target.attributes.value.value, 10));
     }
 };
 
