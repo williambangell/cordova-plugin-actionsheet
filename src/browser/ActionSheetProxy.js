@@ -15,37 +15,50 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         body.appendChild(actionSheetContainer);
     }
 
+    var actionSheetBox = document.getElementById('actionSheetBox');
+    if (!actionSheetBox) {
+        actionSheetBox = document.createElement('div');
+        actionSheetBox.setAttribute('id', 'actionSheetBox');
+        actionSheetContainer.appendChild(actionSheetBox);
+    }
+
     if (actionSheetContainer.hidden) {
         actionSheetContainer.hidden = false;
     }
 
     if (options) {
-        this._clearChildren(actionSheetContainer);
+        this._clearChildren(actionSheetBox);
 
         if (options.title) {
-            this._addTitle(options.title, actionSheetContainer);
+            this._addTitle(options.title, actionSheetBox);
         }
 
         if (!options.destructiveButtonLast && options.addDestructiveButtonWithLabel) {
-            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetContainer, 1);
+            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetBox, 1);
             ActionSheet.prototype._btnOffsetIndex = 2;
         } else {
             ActionSheet.prototype._btnOffsetIndex = 1;
         }
 
         if (options.buttonLabels) {
-            this._addbuttons(options.buttonLabels, actionSheetContainer);
+            var actionSheetButtonContainer = document.getElementById('actionSheetButtonContainer');
+            if (!actionSheetButtonContainer) {
+                actionSheetButtonContainer = document.createElement('div');
+                actionSheetButtonContainer.setAttribute('id', 'actionSheetButtonContainer');
+                actionSheetBox.append(actionSheetButtonContainer);
+            }
+            this._addbuttons(options.buttonLabels, actionSheetButtonContainer);
         }
 
         if (options.destructiveButtonLast && options.addDestructiveButtonWithLabel) {    //Generate Desctructive Button
-            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetContainer, options.buttonLabels.length + 1);
+            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetBox, options.buttonLabels.length + 1);
         }
 
         if (options.addCancelButtonWithLabel) {
             if (options.addDestructiveButtonWithLabel)
-                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetContainer, options.buttonLabels.length + 2);
+                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetBox, options.buttonLabels.length + 2);
             else
-                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetContainer, options.buttonLabels.length + 1);
+                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetBox, options.buttonLabels.length + 1);
         }
     }
 };
@@ -69,10 +82,10 @@ cordova.commandProxy.add('ActionSheet', ActionSheet);
 
 //Helpers
 ActionSheet.prototype._addTitle = function (label, destination) {
-    var title = document.createElement('h3');
-    title.setAttribute('id', 'actionSheetTitle');
-    title.innerHTML = label;
-    destination.appendChild(title);
+    var actionSheetTitle = document.createElement('p');
+    actionSheetTitle.setAttribute('id', 'actionSheetTitle');
+    actionSheetTitle.innerHTML = label;
+    destination.appendChild(actionSheetTitle);
 };
 
 
