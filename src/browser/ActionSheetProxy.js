@@ -22,7 +22,8 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         actionSheetContainer.appendChild(actionSheetBox);
     }
 
-    if ('none' === actionSheetContainer.style.display) {
+    if (!actionSheetContainer.style.display
+        || ('none' === actionSheetContainer.style.display)) {
         actionSheetContainer.style.zIndex = '2147483647';
         actionSheetContainer.style.display = 'block';
     }
