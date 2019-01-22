@@ -7,7 +7,7 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         ActionSheet.prototype.successCallBack = successCallback;
     }
 
-    var actionSheetContainer = document.getElementById('actionSheetProxyContainer');
+    var actionSheetContainer = document.getElementById('actionSheetContainer');
     if (!actionSheetContainer) {
         var body = document.getElementById('allBody');
         actionSheetContainer = document.createElement('div');
