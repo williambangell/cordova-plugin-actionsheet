@@ -11,8 +11,7 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
     if (!actionSheetContainer) {
         var body = document.getElementById('allBody');
         actionSheetContainer = document.createElement('div');
-        actionSheetContainer.setAttribute('class', 'action-sheet-container');
-        actionSheetContainer.setAttribute('id', 'actionSheetProxyContainer');
+        actionSheetContainer.setAttribute('id', 'actionSheetContainer');
         body.appendChild(actionSheetContainer);
     }
 
@@ -52,7 +51,7 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
 };
 
 ActionSheet.prototype.hide = function (options, successCallback, errorCallback) {
-    var actionSheetContainer = document.getElementById('actionSheetProxyContainer');
+    var actionSheetContainer = document.getElementById('actionSheetContainer');
     actionSheetContainer.hidden = true;
 };
 
