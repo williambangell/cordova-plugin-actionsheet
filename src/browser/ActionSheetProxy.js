@@ -22,8 +22,9 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         actionSheetContainer.appendChild(actionSheetBox);
     }
 
-    if (actionSheetContainer.hidden) {
-        actionSheetContainer.hidden = false;
+    if ('none' === actionSheetContainer.style.display) {
+        actionSheetContainer.style.zIndex = '2147483647';
+        actionSheetContainer.style.display = 'block';
     }
 
     if (options) {
@@ -34,7 +35,13 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         }
 
         if (!options.destructiveButtonLast && options.addDestructiveButtonWithLabel) {
-            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetBox, 1);
+            var actionSheetButtonContainer = document.getElementById('actionSheetButtonContainer');
+            if (!actionSheetButtonContainer) {
+                actionSheetButtonContainer = document.createElement('div');
+                actionSheetButtonContainer.setAttribute('id', 'actionSheetButtonContainer');
+                actionSheetBox.append(actionSheetButtonContainer);
+            }
+            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetButtonContainer, 1);
             ActionSheet.prototype._btnOffsetIndex = 2;
         } else {
             ActionSheet.prototype._btnOffsetIndex = 1;
@@ -51,21 +58,34 @@ ActionSheet.prototype.show = function (options, successCallback, errorCallback) 
         }
 
         if (options.destructiveButtonLast && options.addDestructiveButtonWithLabel) {    //Generate Desctructive Button
-            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetBox, options.buttonLabels.length + 1);
+            var actionSheetButtonContainer = document.getElementById('actionSheetButtonContainer');
+            if (!actionSheetButtonContainer) {
+                actionSheetButtonContainer = document.createElement('div');
+                actionSheetButtonContainer.setAttribute('id', 'actionSheetButtonContainer');
+                actionSheetBox.append(actionSheetButtonContainer);
+            }
+            this._addDestructiveButton(options.addDestructiveButtonWithLabel, actionSheetButtonContainer, options.buttonLabels.length + 1);
         }
 
         if (options.addCancelButtonWithLabel) {
+            var actionSheetButtonContainer = document.getElementById('actionSheetButtonContainer');
+            if (!actionSheetButtonContainer) {
+                actionSheetButtonContainer = document.createElement('div');
+                actionSheetButtonContainer.setAttribute('id', 'actionSheetButtonContainer');
+                actionSheetBox.append(actionSheetButtonContainer);
+            }
             if (options.addDestructiveButtonWithLabel)
-                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetBox, options.buttonLabels.length + 2);
+                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetButtonContainer, options.buttonLabels.length + 2);
             else
-                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetBox, options.buttonLabels.length + 1);
+                this._addCancelButton(options.addCancelButtonWithLabel, actionSheetButtonContainer, options.buttonLabels.length + 1);
         }
     }
 };
 
 ActionSheet.prototype.hide = function (options, successCallback, errorCallback) {
     var actionSheetContainer = document.getElementById('actionSheetContainer');
-    actionSheetContainer.hidden = true;
+    actionSheetContainer.style.zIndex = '-1';
+    actionSheetContainer.style.display = 'none';
 };
 
 ActionSheet.prototype.install = function () {
