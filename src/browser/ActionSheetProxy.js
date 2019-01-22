@@ -70,25 +70,25 @@ cordova.commandProxy.add('ActionSheet', ActionSheet);
 //Helpers
 ActionSheet.prototype._addTitle = function (label, destination) {
     var title = document.createElement('h3');
-    title.setAttribute('class', 'action-sheet-title');
+    title.setAttribute('id', 'actionSheetTitle');
     title.innerHTML = label;
     destination.appendChild(title);
 };
 
 
 ActionSheet.prototype._addDestructiveButton = function (label, destination, position) {
-    var btn = document.createElement('button');
+    var btn = document.createElement('div');
     btn.setAttribute('value', position);
-    btn.setAttribute('class', 'action-sheet-button action-sheet-destructive-button');
+    btn.setAttribute('class', 'actionSheetButton actionSheetDestructiveButton');
     btn.innerHTML = label;
     btn.onclick = ActionSheet.prototype._onclick;
     destination.appendChild(btn);
 };
 
 ActionSheet.prototype._addCancelButton = function (label, destination, position) {
-    var btn = document.createElement('button');
+    var btn = document.createElement('div');
     btn.setAttribute('value', position);
-    btn.setAttribute('class', 'action-sheet-button action-sheet-cancel-button');
+    btn.setAttribute('class', 'actionSheetButton actionSheetCancelButton');
     btn.innerHTML = label;
     btn.onclick = ActionSheet.prototype._onclick;
     destination.appendChild(btn);
@@ -96,9 +96,9 @@ ActionSheet.prototype._addCancelButton = function (label, destination, position)
 
 ActionSheet.prototype._addbuttons = function (labels, destination) {
     for (var i = 0; i < labels.length; i++) {
-        var btn = document.createElement('button');
+        var btn = document.createElement('div');
         btn.setAttribute('value', i + ActionSheet.prototype._btnOffsetIndex);
-        btn.setAttribute('class', 'action-sheet-button action-sheet-normal-button');
+        btn.setAttribute('class', 'actionSheetButton actionSheetNormalButton');
         btn.innerHTML = labels[i];
         btn.onclick = ActionSheet.prototype._onclick;
         destination.appendChild(btn);
